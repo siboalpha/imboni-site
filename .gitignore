@@ -1,4 +1,4 @@
-.env
+DjangoApp/.env
 venv
 db.sqlite3
 migrations
