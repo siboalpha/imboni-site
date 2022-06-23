@@ -1,3 +1,4 @@
+from dataclasses import field
 from email.policy import default
 from pyexpat import model
 from django.forms import ModelForm, TextInput, ImageField, Textarea, EmailInput, Select, FileInput
@@ -50,10 +51,24 @@ class GettingInvolvedLeadForm(ModelForm):
         }
 
 
-class VolunteeringAplicantsForm(ModelForm):
+class VolunteersForm(ModelForm):
     class Meta:
-        model = VolunteeringAplicants
-        fields = ['first_name']
+        model = Volunteer
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'nationality',
+        'current_adress', 'level_of_education', 'specialization', 'graduation_country',
+        'experience', 'consept_note', 'owns_a_computer', 'cv']
         widgets = {
-            'first_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Your first name'})
+            'first_name': TextInput(attrs={'class':'form-control', 'placeholder': 'Your first name'}),
+            'last_name': TextInput(attrs={'class':'form-control', 'placeholder': 'Your last name'}),
+            'email': TextInput(attrs={'class':'form-control', 'placeholder': 'email'}),
+            'phone_number': TextInput(attrs={'class':'form-control', 'placeholder': 'Your phone number'}),
+            'nationality': TextInput(attrs={'class':'form-control', 'placeholder': 'nationality'}),
+            'current_adress': TextInput(attrs={'class':'form-control', 'placeholder': 'current adress'}),
+            'level_of_education': TextInput(attrs={'class':'form-control', 'placeholder': 'level of education'}),
+            'specialization': TextInput(attrs={'class':'form-control', 'placeholder': 'specialization'}),
+            'graduation_country': TextInput(attrs={'class':'form-control', 'placeholder': 'graduation country'}),
+            'experience': Textarea(attrs={'class':'form-control', 'placeholder': 'Your Experience'}),
+            'consept_note': Textarea(attrs={'class':'form-control', 'placeholder': 'Your Consept'}),
+            'owns_a_computer': TextInput(attrs={'class':'form-control', 'placeholder': 'Yes or No'}),
+            'cv': FileInput(attrs={'class':'form-control', 'placeholder': 'Yes or No'}),
         }

@@ -1,21 +1,16 @@
-from turtle import title
-from unicodedata import category
 from django.utils import timezone
 from django.db import models
-from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import RichTextUploadingField
+from tinymce import models as tinymce_models
 # Create your models here.
 
 class Blog(models.Model):
     title = models.CharField(max_length=255,)
     featured_image = models.ImageField(null=True)
-    content = RichTextUploadingField(null=True)
+    content = tinymce_models.HTMLField(null=True)
+    excerpt = models.CharField(max_length=255, null=True)
     date_added = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
-
-    def excerpt(self):
-        return self.content[0:100]+"..."
 
     def blog_title(self):
         return self.title[0:50]+"..."
@@ -58,7 +53,7 @@ class GettingInvolvedLead(models.Model):
         return self.first_name
     
     
-class OfficialDocuments(models.Model):
+class OfficialDocument(models.Model):
     legal_personality = 'Legal Personality'
     ministerial_collaboration = 'Ministerial Collaboration'
     signed_MOUs = 'Signed MOUs'
@@ -75,5 +70,27 @@ class OfficialDocuments(models.Model):
     def __str(self):
         return self.title
 
-class VolunteeringAplicants(models.Model):
+
+class Volunteer(models.Model):
+    Rejected = 'Regected'
+    Pending = 'Pending'
+    Approved = 'Approved'
+    STATUS_CHOICES = [
+        (Rejected, 'Rejected'),
+        (Pending, 'Pending'),
+        (Approved, 'Approved'),
+    ]
+    membership_status = models.CharField(max_length=255, choices=STATUS_CHOICES, default=Pending)
     first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255, null=True)
+    phone_number = models.CharField(max_length=255, null=True)
+    nationality = models.CharField(max_length=255, null=True)
+    current_adress = models.CharField(max_length=255, null=True)
+    level_of_education = models.CharField(max_length=255, null=True)
+    specialization = models.CharField(max_length=255, null=True)
+    graduation_country = models.CharField(max_length=255, null=True)
+    experience = models.TextField(max_length=2550, null=True)
+    consept_note = models.TextField(max_length=2550, null=True)
+    owns_a_computer = models.TextField(max_length=2550, null=True)
+    cv = models.FileField(null=True, upload_to="Applicant's CVs")

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.urls import clear_script_prefix
 from .models import *
 # Register your models here.
 
@@ -15,11 +14,10 @@ class BlogAdmin(admin.ModelAdmin):
 class GettingInvolvedLeadAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "email", "phone_number", "application_date")
 
-@admin.register(OfficialDocuments)
+@admin.register(OfficialDocument)
 class OfficialDocumentsAdmin(admin.ModelAdmin):
     list_display = ("title", "category")
 
-admin.site.register(VolunteeringAplicants)
-#@admin.register(VolunteeringAplicants)
-#class VolunteeringAplicantsAdmin(admin.ModelAdmin):
-#    list_display = ("first_name")
+@admin.register(Volunteer)
+class VolunteerAdmin(admin.ModelAdmin):
+    list_display = ("first_name", "last_name", 'email', 'phone_number', 'nationality', 'membership_status')

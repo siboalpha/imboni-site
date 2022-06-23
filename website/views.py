@@ -34,7 +34,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 def about(request):
-    official_documents = OfficialDocuments.objects.all()
+    official_documents = OfficialDocument.objects.all()
     print(official_documents)
     context = {'official_documents': official_documents}
     return render(request, 'about.html', context)
@@ -96,14 +96,18 @@ def addBlog(request):
         return redirect('blog')
     return render(request, 'add-blog.html', context)
 
+def  volunteering(request):
+    form = VolunteersForm()
+    context = {'form': form}
+    if request.method == 'POST':
+        form = VolunteersForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('thank-you')
+    return render(request, 'volunteers.html', context)
+
 def login(request):
     return render(request, 'login.html')
-
-def volunteeringAplicantsView(request):
-    form = VolunteeringAplicantsForm()
-    context = {'form': form}
-    return render(request, 'v-application-form.html', context)
-
 
 def applicationComplete(request):
     return render(request, 'application-complete.html')
