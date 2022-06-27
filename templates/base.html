@@ -121,12 +121,10 @@
             <div class="important-links">
                 <h4 class="title-title">Imprtant links</h4>
                 <ol>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About us</a></li>
-                    <li><a href="">Projects</a></li>
-                    <li><a href="">Programs</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Get in touch</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about'}">About us</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}">Get in touch</a></li>
                 </ol>
             </div>
 

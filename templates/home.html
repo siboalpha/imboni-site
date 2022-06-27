@@ -61,7 +61,9 @@
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                 took a galley of type and scrambled it to make a type specimen book.
             </p>
-            <button class="btn-green">More projects</button>
+            <a href="https://www.youtube.com/channel/UCpUb64qdUlS9E2bPCRSHc8A">
+                <button class="btn-green">More projects</button>
+            </a>
 
         </div>
 
@@ -129,7 +131,9 @@
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                 took a galley of type and scrambled it to make a type specimen book.
             </p>
-            <button class="btn-green">More campaigns</button>
+            <a href="{% url 'contact' %}">
+                <button class="btn-green">Get in touch</button>
+            </a>
         </div>
 
         <div class="col-right">
@@ -176,44 +180,19 @@
         <h4 class="sub-heading">Some news</h4>
         <h1 class="heading">Blog</h1>
         <div class="blogs">
-            <div class="blog">
-                <img src="{% static 'img/00-story-protest.jpg' %}" alt="">
-                <p class="blog-title">
-                    Umuryango Imbonizarwo wahuje abahanzi bize ku Nyundo
-                </p>
-                <p class="blog-description">
-                    It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                    that it has a more-or-less normal distribution of letters, as opposed to using
-                    'Content here, content here'.... <span class="read-more">Read more</span>
-                </p>
-            </div>
-
-            <div class="blog">
-                <img src="{% static 'img/00-story-protest.jpg' %}" alt="">
-                <p class="blog-title">
-                    Umuryango Imbonizarwo wahuje abahanzi bize ku Nyundo
-                </p>
-                <p class="blog-description">
-                    It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                    that it has a more-or-less normal distribution of letters, as opposed to using
-                    'Content here, content here'.... <span class="read-more">Read more</span>
-                </p>
-            </div>
-
-            <div class="blog">
-                <img src="{% static 'img/00-story-protest.jpg' %}" alt="">
-                <p class="blog-title">
-                    Umuryango Imbonizarwo wahuje abahanzi bize ku Nyundo
-                </p>
-                <p class="blog-description">
-                    It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                    that it has a more-or-less normal distribution of letters, as opposed to using
-                    'Content here, content here'.... <span class="read-more">Read more</span>
-                </p>
-            </div>
+            {% for blog in page_obj %}
+            <a href="{% url 'single-blog' blog.id %}">
+                <div class="blog">
+                    <img src="{{blog.featured_image.url}}" alt="">
+                    <p class="blog-title">
+                        {{blog.blog_title}}
+                    </p>
+                    <p class="blog-description">
+                        {{blog.excerpt}}....<span class="read-more">Read more</span>
+                    </p>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </div>
 </section>

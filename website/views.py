@@ -1,5 +1,7 @@
+from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.core.paginator import Paginator
 from .forms import *
 from .models import *
 from django.core.mail import EmailMessage
@@ -7,9 +9,14 @@ from DjangoApp import settings
 from django.template.loader import render_to_string
 
 # Create your views here.
+maintenance = False
 def home(request):
+    blog = Blog.objects.all()
+    paginator = Paginator(blog, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     form = ContactFormMessageForm()
-    context = {'form':form}
+    context = {'form':form, 'page_obj': page_obj}
     if request.method == 'POST':
         form  =  ContactFormMessageForm(request.POST)
         if form.is_valid():
@@ -31,12 +38,16 @@ def home(request):
             except:
                 return HttpResponse("Information sent but Imbonizarwo was not notified")
         return redirect('thank-you')
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'home.html', context)
 
 def about(request):
     official_documents = OfficialDocument.objects.all()
     print(official_documents)
     context = {'official_documents': official_documents}
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'about.html', context)
 
 def contact(request):
@@ -63,6 +74,8 @@ def contact(request):
             except:
                 return HttpResponse("Information sent but Imbonizarwo was not notified")
         return redirect('thank-you')
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'contact.html', context)
 
 def getInvolved(request):
@@ -74,12 +87,26 @@ def getInvolved(request):
             form.save()
 
             return redirect('thank-you')
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'get-involved.html', context)
 
 def blog(request):
     blogs = Blog.objects.all()
-    context = {'blogs': blogs}
+    paginator = Paginator(blogs, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'blogs': blogs, 'page_obj': page_obj}
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'blog.html', context)
+
+def singleBlog(request, pk):
+    blog = Blog.objects.get(id=pk)
+    context = {'blog': blog}
+    if maintenance:
+        return render(request, 'maintenance.html')
+    return render(request, 'single-blog.html', context)
 
 def base(request):
     blogs = Blog.objects.all()
@@ -94,6 +121,8 @@ def addBlog(request):
         form = AddBlogFrom(request.POST)
         form.save()
         return redirect('blog')
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'add-blog.html', context)
 
 def  volunteering(request):
@@ -103,7 +132,9 @@ def  volunteering(request):
         form = VolunteersForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('thank-you')
+            return redirect('application-complete')
+    if maintenance:
+        return render(request, 'maintenance.html')
     return render(request, 'volunteers.html', context)
 
 def login(request):
