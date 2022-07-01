@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv('MY_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['45.79.132.149', '127.0.0.1']
+ALLOWED_HOSTS = ['69.164.222.177', '127.0.0.1']
 
 
 # Application definition
@@ -75,6 +75,16 @@ DATABASES = {
     }
 }
 
+#DATABASES = {
+#    'default' : {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': os.getenv('DB_NAME'),
+#        'USER': os.getenv('DB_USER'),
+#        'PASSWORD': os.getenv('DB_PASSWORD'),
+#        'HOST': os.getenv('DB_HOST'),
+#        'PORT': '5432',
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
